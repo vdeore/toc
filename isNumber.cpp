@@ -29,5 +29,5 @@ bool isNumber (string in) {
 
 main() {
     cout << "\n isNumber : " << isNumber("++3.3425") << "\n";
-    //cout << "\n isNumber : "<< isNumber("80.01") << "\n";
+    cout << "\n isNumber : "<< isNumber("80.01") << "\n";
 }
