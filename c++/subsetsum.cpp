@@ -43,6 +43,20 @@ int subsetsum::max_subsetsum(vector<int>& v) {
     cout<<"\n";
     s[0] = v[0] < 0 ? 0 : v[0];
     //cout <<s[0]<<", ";
+    bool all_negative = true;
+    max_sum = v[0];
+    for (int i = 0; i < v.size(); ++i) {
+        if (v[i] < 0) {
+            max_sum = max(max_sum, v[i]);
+        } else {
+            all_negative  = false;
+            break;
+        }
+    }
+    if (all_negative) {
+        return max_sum;
+    }
+    max_sum = 0;
     for (int i = 1; i < v.size(); ++i) {
         s[i] = max(v[i], s[i-1] + v[i]);
         if (max_sum < s[i]) {
@@ -70,7 +84,8 @@ int subsetsum::max_subsetsum(vector<int>& v) {
 }
 
 main () {
-    int a[] = {-3, -2, 4, -1, -2, 1, 5, -3};
+    int a[] = {-3, -2, 0, -1, -2, -1, -5, -3};
+
     vector<int> v(a, a + sizeof(a)/sizeof(int));
 
     cout << "\nmax subset sum : "<< subsetsum::max_subsetsum(v)<<"\n";
