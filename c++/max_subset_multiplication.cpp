@@ -32,7 +32,7 @@ int max_subset_mult(vector<int> v) {
 }
 
 main () {
-    int a[] = {-1, 0};
+    int a[] = {0, -20, 0};
     vector<int> v(a, a + sizeof(a)/sizeof(int));
     cout << "\n max subset multi : " << max_subset_mult(v);
 }

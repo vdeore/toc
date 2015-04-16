@@ -1,3 +1,16 @@
+/*
+   Problem Statement:
+   Little Teddy and Little Tracy are now learning how to speak words. Their mother, 
+   of course, doesn't want them to speak bad words. According to her definition, a i
+   word W is bad if at least one of the following conditions hold (see the notes section for definitions):
+        W contains the string badPrefix as a prefix.
+        W contains the string badSuffix as a suffix.
+        W contains the string badSubstring as a contiguous substring that is neither a prefix nor a suffix of W.
+
+    You are given a String[] vocabulary representing the words that Teddy and Tracy are going to learn. 
+    Return the number of bad words in vocabulary.
+ */
+
 #include<iostream>
 #include<string>
 using namespace std;
