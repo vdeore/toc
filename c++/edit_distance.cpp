@@ -6,7 +6,6 @@ using namespace std;
 int T[20][20];
 
 int edit_distance(string a, string b) {
-    int min1 = 9999;
     for (int i = 0; i <= a.length(); ++i) {
         T[i][0] = i;
     }
