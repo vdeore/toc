@@ -33,11 +33,13 @@ class tree {
     public:
     tree():root(NULL) {}
     tree(vector<int>&);
+    node* getroot() { return root;}
     void print();
     void printLevel();
     void prettyprint();
     int height();
     node* ConstructTree(vector<int>&, int, int);
+    void print_paths(node *, queue<int>);
 };
 
 int tree::getHeight(node *r) {
@@ -239,10 +241,24 @@ void tree::prettyprint() {
     grid_print(lx);
 }
 
+void tree::print_paths(node *r, queue<int> path_q) {
+    if (!r) { return; }
+    if (r && !r->left && !r->right) {
+        cout <<"\n "<<r->v<<"-> ";
+        while (!path_q.empty()) {
+            path_q.front();
+            cout <<" "<< path_q.front();
+            path_q.pop();
+        }
+        return;
+    }
+    path_q.push(r->v);
+    print_paths(r->left, path_q);
+    print_paths(r->right, path_q);
+}
+
 main () {
     int a[30];
-    //int a[] = {0,1,2,3,4,5,6,7,8,9,10};
-
     for (int i = 0; i < 30; ++i) {
         a[i] = i;
     }
@@ -253,4 +269,6 @@ main () {
     t2.printLevel();
     t2.height();
     t2.prettyprint();
+    queue<int> q1;
+    t2.print_paths(t2.getroot(), q1);
 }
