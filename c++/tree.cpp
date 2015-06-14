@@ -40,6 +40,7 @@ class tree {
     int height();
     node* ConstructTree(vector<int>&, int, int);
     void print_paths(node *, queue<int>);
+    void range(node *, int, int);
 };
 
 int tree::getHeight(node *r) {
@@ -257,6 +258,21 @@ void tree::print_paths(node *r, queue<int> path_q) {
     print_paths(r->right, path_q);
 }
 
+/* Time complexity O(n), can it be improved ?
+ * */
+void tree::range(node *r, int x, int y) {
+    if (!r) { return; }
+    if (x < r->v) {
+        range(r->left, x, y);
+    } 
+    if (y > r->v) {
+        range(r->right, x, y);
+    } 
+    if (r->v >= x && r->v <= y) {
+        cout <<" "<<r->v;
+    }
+}
+
 main () {
     int a[30];
     for (int i = 0; i < 30; ++i) {
@@ -270,5 +286,7 @@ main () {
     t2.height();
     t2.prettyprint();
     queue<int> q1;
-    t2.print_paths(t2.getroot(), q1);
+    //t2.print_paths(t2.getroot(), q1);
+    cout <<"\n range: ";
+    t2.range(t2.getroot(), 2, 5);
 }
