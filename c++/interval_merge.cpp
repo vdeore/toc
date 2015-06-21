@@ -1,11 +1,16 @@
+/* Porblem: 
+ * Merging overlapping intervals
+ * */
+
 #include<iostream>
 #include<algorithm>
 #include<vector>
+#include<stack>
 #include<utility>
 #define N 3
 using namespace std;
 bool compare(pair<int, int>a, pair<int, int>b) {
-    return (a.first < b.second);
+    return (a.first < b.first);
 }
 
 void print(vector<pair<int, int> > &v) {
@@ -16,48 +21,37 @@ void print(vector<pair<int, int> > &v) {
     cout <<"\n";
 }
 
-void add(vector<pair<int, int> >&v, int l, int r, pair<int, int> &nw) {
-    if (l >= 0 && v[l].first <= nw.second) {
-        v[l].first = min(nw.first, v[l].first);
-        v[l].second = max(nw.second, v[l].second);
-    } else if (l >=0 && v[l].first > nw.second) {
-        v.insert(v.begin(), nw);
-    } else if (r < v.size() && v[r].second >= nw.first) {
-        v[r].first = min(nw.first, v[r].first);
-        v[r].second = max(nw.second, v[r].second);
-        return;
-    } else if (v[r].second > nw.first) {
-        v.insert(v.end(), nw);
-        return;
-    }
-}
-
 void insert(vector<pair<int, int> >&v, pair<int, int> nw) {
-    int l = 0, r = v.size(), m;
+    stack<pair<int, int> > s;
 
-    while (l < r) {
-        m = (l+r)/2;
-        if (r-l == 1) {
-            cout <<"found";
-            cout <<"\n* ["<<v[l].first<<", "<<v[l].second<<"]";
-            cout <<"\n* ["<<v[r].first<<", "<<v[r].second<<"]\n";
-            add(v, l, r, nw);
-            break;
-        } 
-        if (v[m].first < nw.first) {
-            l = m;
-        } else if (v[m].first > nw.first){
-            r = m;
+    v.insert(v.begin(), nw);
+    sort(v.begin(), v.end(), compare);
+    print(v);
+    s.push(v[0]);
+
+    for (int i = 1; i < v.size(); ++i) {
+        pair<int, int> top = s.top();
+        if (top.second >= v[i].first) {
+            s.pop();
+            top.second = max(top.second, v[i].second);;
+            s.push(top);
         } else {
-            if (v[m].second < nw.second) {
-                v[m].second = nw.second;
-            }
+            s.push(v[i]);
         }
     }
+
+    v.clear();
+    v.resize(v.size());
+    while (!s.empty()) {
+        pair <int,int>top = s.top();
+        v.push_back(top);
+        s.pop();
+    }
+    sort(v.begin(), v.end(), compare);
 }
 
 main () {
-    int ii[N][2] = {{0,2}, {-10,-1},  {4,10}};
+    int ii[N][2] = {{0,2}, {3,6},  {7,10}};
     vector<pair<int, int> >v;
 
     v.resize(N);
@@ -65,11 +59,10 @@ main () {
         v[i] = make_pair(ii[i][0], ii[i][1]);
     }
 
-    print(v);
-    cout <<"\nafter sort";
-    sort(v.begin(), v.begin()+N, compare);
+    cout <<"\nbefore insert";
     print(v);
 
-    insert(v, make_pair(11, 12));
+    insert(v, make_pair(5, 7));
+    cout <<"\nafter insert";
     print(v);
 }
