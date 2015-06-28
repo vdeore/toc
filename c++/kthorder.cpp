@@ -48,8 +48,10 @@ main () {
     int k = 6;
     int a[] = {14,8,22,12,4,2,10};
 
-    cout<<"\n"<<k<<"th-order stats: "
-        <<kthorder(a, 0, sizeof(a)/sizeof(int)-1, k)
+    for (int i = 0; i < 7; ++i) {
+    cout<<"\n"<<i<<"th-order stats: "
+        <<kthorder(a, 0, sizeof(a)/sizeof(int)-1, i)
         <<"\n";
+    }
     sort(a, a+sizeof(a)/sizeof(int));
 }
