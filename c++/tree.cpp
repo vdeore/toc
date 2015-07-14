@@ -41,7 +41,30 @@ class tree {
     node* ConstructTree(vector<int>&, int, int);
     void print_paths(node *, queue<int>);
     void range(node *, int, int);
+    int find_closest(node *, int);
 };
+
+int tree::find_closest(node *r, int n) {
+    node *tmp = r, *res = r;
+    int d, md = 99999;
+
+    while (tmp) {
+        d = n - tmp->v; 
+        md = min(md, abs(d));
+        cout <<"\n "<<d<<" "<<md;
+        if (md == abs(d)) {
+            res = tmp;
+        }
+        if (d > 0) {
+            tmp = tmp->right;
+        } else if (d < 0) {
+            tmp = tmp->left;
+        } else {
+            return tmp->v;
+        }
+    }
+    return res->v;
+}
 
 int tree::getHeight(node *r) {
     if (!r) {
@@ -276,7 +299,7 @@ void tree::range(node *r, int x, int y) {
 main () {
     int a[30];
     for (int i = 0; i < 30; ++i) {
-        a[i] = i;
+        a[i] = i*i;
     }
     vector<int> v(a, a + sizeof(a)/sizeof(int));
     memset(grid, ' ', 32*140);
@@ -286,7 +309,9 @@ main () {
     t2.height();
     t2.prettyprint();
     queue<int> q1;
-    //t2.print_paths(t2.getroot(), q1);
+    t2.print_paths(t2.getroot(), q1);
     cout <<"\n range: ";
     t2.range(t2.getroot(), 2, 5);
+    cout <<"\n Find_closest:  "
+         <<t2.find_closest(t2.getroot(), 222)<<"\n";
 }
