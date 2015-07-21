@@ -36,5 +36,3 @@ main () {
     vector<int> v(a, a+sizeof(a)/sizeof(int));
     cout <<"\n min : "<<findMin(v);
 }
-
-

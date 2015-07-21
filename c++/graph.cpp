@@ -29,7 +29,7 @@ void graph::DFSUtil (int i, bool visited[]) {
     visited[i] = true;
 
     cout <<" "<< i << " ";
-    for (list<int>::iterator it = adj[i].begin(); 
+    for (list<int>::iterator it = adj[i].begin();
          it != adj[i].end(); ++it) {
         if (!visited[*it]) {
             DFSUtil(*it, visited);

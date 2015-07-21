@@ -11,7 +11,7 @@ long change(vector<long> &v, long c) {
     m.reserve(100);
     m[0] = 1;
     for (long i = 0; i < v.size(); ++i) {
-        for (long j = v[i]; j <= c; ++j) 
+        for (long j = v[i]; j <= c; ++j)
             m[j] += m[j-v[i]];
         cout <<" "<<m[i];
     }
